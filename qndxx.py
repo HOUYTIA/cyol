@@ -32,13 +32,13 @@ class Get_QNDXX_Picture():
         """
         response_lastest_url = requests.get(self.lastest_url) #爬最新一期网页信息
         html_lastest = response_lastest_url.text.encode("ISO-8859-1").decode("utf-8")
-        
+
         pattern_title = r'<title>(.*?)</title>'
         title = re.findall(pattern_title,html_lastest)[0] #获取最新一期标题
         #打开初始头部图片,将标题写入并保存
         image_title = Image.open("resources\\title.jpg")
         title_draw = ImageDraw.Draw(image_title)
-        font = ImageFont.truetype("simhei.ttf", 37, encoding="unic")
+        font = ImageFont.truetype("resources\\HarmonyOS_Sans_SC_Regular.ttf", 37, encoding="unic")
         title_draw.text((170, 5), title, 'black', font)
         image_title.save("created\\new_title.jpg","jpeg")
 
@@ -51,9 +51,9 @@ class Get_QNDXX_Picture():
             now_time[0] = now_time[0].replace("0","")
         
         #打开初始手机状态栏图片,将时间写入并保存
-        image_title = Image.open("resources\\90f6af3550978d924cd7ef798161fd5.jpg")
+        image_title = Image.open("resources/title1.jpg")
         title_draw = ImageDraw.Draw(image_title)
-        font = ImageFont.truetype("simhei.ttf", 37, encoding="unic")
+        font = ImageFont.truetype("resources\\HarmonyOS_Sans_SC_Regular.ttf", 30, encoding="unic")
         title_draw.text((10, 20), now_time[0], 'black', font)
         image_title.save("created\\new_phone_title.jpg","jpeg")
     
