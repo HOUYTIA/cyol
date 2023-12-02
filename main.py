@@ -7,7 +7,6 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -18,11 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QPushButton,
     QSizePolicy, QWidget)
 from PIL import Image,ImageDraw,ImageFont
-import requests
-import time
-import sys
-import os
-import re
+import matplotlib.pyplot as plt
 from qndxx import *
 
 class Ui_MainWindow(object):
@@ -59,6 +54,7 @@ class Ui_MainWindow(object):
         self.label.setStyleSheet(u"font: 9pt \"HarmonyOS Sans SC\";\n"
 "text-align:center;")
         self.label.setAlignment(Qt.AlignCenter)
+        self.label.setOpenExternalLinks(True)
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setGeometry(QRect(10, 10, 91, 41))
@@ -68,15 +64,25 @@ class Ui_MainWindow(object):
         def runing():
             cwd = os.path.abspath(os.path.dirname(sys.argv[0]))
             os.chdir(cwd)
-            url = "http://news.cyol.com/gb/channels/vrGlAKDl/index.html"  # 大学习主网站
+            url = "http://news.cyol.com/gb/channels/vrGlAKDl/index.html"
             qndxx = Get_QNDXX_Picture(url)
             qndxx.get_body()
             qndxx.get_title()
             qndxx.get_phone_title()
             qndxx.finished()
             self.label.setText('运行完毕')
+        def imgview():
+            img =Image.open('new.jpg')
+            plt.rcParams['font.sans-serif']=['SimHei']
+            plt.subplot(121)
+            plt.imshow(img)
+            plt.axis('off')
+            plt.tight_layout()
+            plt.show()
 
+        #click_event
         self.pushButton.clicked.connect(runing)
+
 
 
         MainWindow.setCentralWidget(self.centralwidget)
